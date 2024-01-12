@@ -15,7 +15,7 @@ export class BioticService {
   public post(biotic: Biotic): Observable<HttpResponse<unknown>> {
     return of(new HttpResponse()).pipe(delay(2000)).pipe(map(x => {
       if (environment.throw400) {
-        throw new HttpErrorResponse({ error: "Invalid request!", status: 400 });
+        throw new HttpErrorResponse({ error: "Readable error response from server. Display this on client.", status: 400 });
       }
 
       if (environment.throw500) {
