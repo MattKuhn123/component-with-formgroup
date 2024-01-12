@@ -1,6 +1,6 @@
 import { Injectable, Signal, WritableSignal, signal } from '@angular/core';
 import { Biotic } from './biotic.form-group';
-import { Observable, catchError, delay, map, of } from 'rxjs';
+import { Observable, catchError, delay, of, tap } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment.development';
 
@@ -19,24 +19,28 @@ export class BioticService {
 
   public post(biotic: Biotic): Observable<unknown> {
     this._postingStatus.set("In Progress");
-    return of({}).pipe(delay(2000)).pipe(map(x => {
-      this.simulateFakeErrors();
+    const fakeRequest: Observable<unknown> = of(null).pipe(delay(2000))
+    .pipe(tap(x => this.simulateFakeErrors()))
+    .pipe(tap(x => {
       this._postingStatus.set("Success");
       this._postingMessage.set("Success!");
-      return x;
-    })).pipe(catchError((err: HttpErrorResponse) => {
-      if (400 <= err.status && err.status <= 499) {
-        this._postingStatus.set("RecoverableError");
-        this._postingMessage.set(err.error);
-      }
+    }))
+    .pipe(catchError((err: HttpErrorResponse) => {
+      const status: PostingStatus = 400 <= err.status && err.status <= 499
+        ? "RecoverableError"
+        : "UnrecoverableError";
 
-      if (500 <= err.status ) {
-        this._postingStatus.set("UnrecoverableError");
-        this._postingMessage.set("An error has occured");
-      }
+      const message: string = status == "RecoverableError"
+        ? err.error
+        : "An error has occured";
+
+      this._postingStatus.set(status);
+      this._postingMessage.set(message);
 
       return of(null);
     }));
+
+    return fakeRequest;
   }
 
   private simulateFakeErrors(): void {
