@@ -9,7 +9,6 @@ import { BioticFormGroup } from './biotic.form-group';
 })
 export class BioticComponent implements OnInit {
   protected bioticForm: BioticFormGroup = new BioticFormGroup();
-
   protected disableSubmit: boolean = true;
   protected requestInProgess: boolean = false;
   protected requestComplete: boolean = false;
