@@ -23,7 +23,7 @@ export class BioticFormGroup extends FormGroup {
       return null;
     }
 
-    return Object.keys(this.errors!)[0];
+    return Object.keys(this.errors)[0];
   }
 
   protected _isInvalid: WritableSignal<boolean> = signal(true);
