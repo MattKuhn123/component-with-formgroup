@@ -27,7 +27,9 @@
   </button>
 
   <div *ngIf="bioticForm.invalid && (bioticForm.touched || bioticForm.dirty)">
-    {{ bioticForm.error }}
+    <p *ngFor="let err of bioticForm.error"> 
+      {{ err }} 
+    </p>
   </div>
 
   <div *ngIf="requestComplete">

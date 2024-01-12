@@ -14,16 +14,16 @@ export class BioticFormGroup extends FormGroup {
   get fishNumber(): FormControl { return super.get('fishNumber') as FormControl; }
   get fishLength(): FormControl { return super.get('fishLength') as FormControl; }
   get confirm(): FormControl { return super.get('confirm') as FormControl; }
-  get error(): string | null {
+  get error(): string[] {
     if (!this.invalid) {
-      return null;
+      return [];
     }
 
     if (!this.errors) {
-      return null;
+      return [];
     }
 
-    return Object.keys(this.errors)[0];
+    return Object.keys(this.errors);
   }
 
   protected _isInvalid: WritableSignal<boolean> = signal(true);
