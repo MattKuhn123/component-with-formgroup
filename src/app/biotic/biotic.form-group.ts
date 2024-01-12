@@ -16,6 +16,8 @@ export interface IBioticFormGroup {
 
   getRawValue(): Biotic;
   markAsPristine(): void;
+  touched: boolean;
+  dirty: boolean;
 }
 
 export class BioticFormGroup extends FormGroup implements IBioticFormGroup {

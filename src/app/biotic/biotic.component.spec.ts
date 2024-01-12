@@ -46,6 +46,8 @@ describe('BioticComponent', () => {
       confirm: new FormControl(),
       error: [],
       fishNumber: new FormControl(),
+      touched: false,
+      dirty: false,
       getRawValue() { return { fishLength: 0, fishNumber: 0 }; },
       markAsPristine() { }
     };
