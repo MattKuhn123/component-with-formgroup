@@ -1,5 +1,5 @@
-import { Component, OnInit, effect } from '@angular/core';
-import { BioticService } from './biotic.service';
+import { Component, effect } from '@angular/core';
+import { BioticService, PostingStatus } from './biotic.service';
 import { BioticFormGroup } from './biotic.form-group';
 
 @Component({
@@ -7,7 +7,7 @@ import { BioticFormGroup } from './biotic.form-group';
   templateUrl: './biotic.component.html',
   styleUrls: ['./biotic.component.css']
 })
-export class BioticComponent implements OnInit {
+export class BioticComponent {
   protected bioticForm: BioticFormGroup = new BioticFormGroup();
   protected disableSubmit: boolean = true;
   protected requestInProgess: boolean = false;
@@ -15,23 +15,31 @@ export class BioticComponent implements OnInit {
   protected message: string = "";
 
   constructor(private bioticService: BioticService) {
+    // disableSubmit
     effect(() => {
-      this.updateDisableSubmit();
-      this.requestInProgess = "In Progress" === this.bioticService.postingStatus();
-      this.requestComplete = ['RecoverableError', 'UnrecoverableError', 'Success'].includes(this.bioticService.postingStatus());
+      this.disableSubmit = this.bioticForm.isInvalid() || this.bioticService.postingStatus() === 'In Progress'
+    });
+    
+    // requestInProgess
+    effect(() => {
+      this.requestInProgess = 'In Progress' === this.bioticService.postingStatus();
+    });
+    
+    // requestComplete
+    effect(() => {
+      const completeStatuses: PostingStatus[] = ['RecoverableError', 'UnrecoverableError', 'Success'];
+      this.requestComplete = completeStatuses.includes(this.bioticService.postingStatus());
+    });
+    
+    // message
+    effect(() => {
       this.message = this.bioticService.postingMessage();
     });
   }
 
-  ngOnInit(): void {
-    this.bioticForm.valueChanges.subscribe(_ => this.updateDisableSubmit());
-  }
-
-  private updateDisableSubmit(): void {
-    this.disableSubmit = this.bioticForm.invalid || this.bioticService.postingStatus() === 'In Progress';
-  }
-
   protected onClickSubmit(): void {
-    this.bioticService.post(this.bioticForm.getRawValue()).subscribe(_ => this.bioticForm.markAsPristine());
+    this.bioticService.post(this.bioticForm.getRawValue()).subscribe(_ => {
+      this.bioticForm.markAsPristine();
+    });;
   }
 }

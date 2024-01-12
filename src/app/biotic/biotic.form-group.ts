@@ -1,3 +1,4 @@
+import { Signal, WritableSignal, signal } from "@angular/core";
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from "@angular/forms";
 
 export type Biotic = {
@@ -25,6 +26,9 @@ export class BioticFormGroup extends FormGroup {
     return Object.keys(this.errors!)[0];
   }
 
+  protected _isInvalid: WritableSignal<boolean> = signal(true);
+  public isInvalid: Signal<boolean> = this._isInvalid.asReadonly();
+
   constructor() {    
     super({
       fishNumber: new FormControl(0, Validators.required),
@@ -39,6 +43,8 @@ export class BioticFormGroup extends FormGroup {
         this.fishLength.enable();
       }
     });
+
+    this.valueChanges.subscribe(x => this._isInvalid.set(this.invalid));
 
     super.validator = this.bioticValidator;
   }
