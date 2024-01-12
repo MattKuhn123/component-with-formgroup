@@ -17,7 +17,7 @@ export class BioticComponent implements OnInit {
   constructor(private bioticService: BioticService) {
     effect(() => {
       this.updateDisableSubmit();
-      this.requestInProgess = this.bioticService.postingStatus() === "In Progress";
+      this.requestInProgess = "In Progress" === this.bioticService.postingStatus();
       this.requestComplete = ['RecoverableError', 'UnrecoverableError', 'Success'].includes(this.bioticService.postingStatus());
       this.message = this.bioticService.postingMessage();
     });
