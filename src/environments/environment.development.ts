@@ -1,4 +1,4 @@
 export const environment = {
-  throw400: true,
+  throw400: false,
   throw500: false,
 };

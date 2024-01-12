@@ -19,9 +19,9 @@
     <input id="confirm" [formControl]="bioticForm.confirm" type="checkbox"/>
   </div>
 
-  <button (click)="onClickSubmit()" [disabled]="bioticForm.invalid || postingStatus() === 'In Progress'">
+  <button (click)="onClickSubmit()" [disabled]="bioticForm.invalid || bioticService.postingStatus() === 'In Progress'">
     Submit
-    <span *ngIf="postingStatus() === 'In Progress'">
+    <span *ngIf="bioticService.postingStatus() === 'In Progress'">
       ......
     </span>
   </button>
@@ -30,8 +30,9 @@
     {{ bioticForm.error }}
   </div>
 
-  <div *ngIf="postingStatus() === 'Error' || postingStatus() === 'Success'">
-   {{ postingMessage() }}
+  <!-- In this example, we do not differentiate between the possible ways to handle the different statuses - but the opprotunity is there! -->
+  <div *ngIf="['RecoverableError', 'UnrecoverableError', 'Success'].includes(bioticService.postingStatus())">
+   {{ bioticService.postingMessage() }}
   </div>
 
 </form>
