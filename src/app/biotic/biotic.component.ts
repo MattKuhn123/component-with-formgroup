@@ -40,6 +40,6 @@ export class BioticComponent {
   protected onClickSubmit(): void {
     this.bioticService.post(this.bioticForm.getRawValue()).subscribe(_ => {
       this.bioticForm.markAsPristine();
-    });;
+    });
   }
 }
