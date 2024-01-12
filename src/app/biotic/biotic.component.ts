@@ -17,7 +17,7 @@ export class BioticComponent {
   constructor(private bioticService: BioticService) { }
 
   protected onClickSubmit(): void {
-    if (this.bioticForm.invalid) {
+    if (this.bioticForm.invalid || this.postingStatus() === "In Progress") {
       return;
     }
 

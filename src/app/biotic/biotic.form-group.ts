@@ -6,6 +6,10 @@ export type Biotic = {
 }
 
 export class BioticFormGroup extends FormGroup {
+  override getRawValue(): Biotic {
+    return super.getRawValue() as Biotic;
+  }
+
   get fishNumber(): FormControl { return super.get('fishNumber') as FormControl; }
   get fishLength(): FormControl { return super.get('fishLength') as FormControl; }
   get confirm(): FormControl { return super.get('confirm') as FormControl; }
@@ -36,11 +40,7 @@ export class BioticFormGroup extends FormGroup {
       }
     });
 
-    this.validator = this.bioticValidator;
-  }
-
-  override getRawValue(): Biotic {
-    return super.getRawValue() as Biotic;
+    super.validator = this.bioticValidator;
   }
 
   private bioticValidator: ValidatorFn = (_: AbstractControl): ValidationErrors | null => {
