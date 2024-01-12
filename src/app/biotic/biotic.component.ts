@@ -1,6 +1,6 @@
 import { Component, OnInit, effect } from '@angular/core';
 import { BioticService } from './biotic.service';
-import { Biotic, BioticFormGroup } from './biotic.form-group';
+import { BioticFormGroup } from './biotic.form-group';
 
 @Component({
   selector: 'app-biotic',
