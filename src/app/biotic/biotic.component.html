@@ -30,7 +30,7 @@
     {{ bioticForm.error }}
   </div>
 
-  <!-- In this example, we do not differentiate between the possible ways to handle the different statuses - but the opprotunity is there! -->
+  <!-- Opprotunity to handle different possible statuses -->
   <div *ngIf="['RecoverableError', 'UnrecoverableError', 'Success'].includes(bioticService.postingStatus())">
    {{ bioticService.postingMessage() }}
   </div>
