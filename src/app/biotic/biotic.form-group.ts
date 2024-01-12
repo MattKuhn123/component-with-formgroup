@@ -14,6 +14,10 @@ export class BioticFormGroup extends FormGroup {
       return null;
     }
 
+    if (!this.errors) {
+      return null;
+    }
+
     return Object.keys(this.errors!)[0];
   }
 
