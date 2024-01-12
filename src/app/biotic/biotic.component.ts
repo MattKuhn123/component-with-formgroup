@@ -33,6 +33,9 @@ export class BioticComponent {
       },
       error: (err: HttpErrorResponse) => {
         this.postingStatus.set("Error");
+
+        // If it's a 400 error, then the server should have responded with a readable error
+        // Otherwise, something unexpected happened, and we should display a generic error
         const postingMessage: string = 400 <= err.status && err.status <= 499
           ? err.error
           : "An error has occured!";
