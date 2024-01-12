@@ -6,7 +6,19 @@ export type Biotic = {
   fishLength: number,
 }
 
-export class BioticFormGroup extends FormGroup {
+export interface IBioticFormGroup {
+  fishNumber: FormControl;
+  fishLength: FormControl;
+  confirm: FormControl;
+  error: string[];
+  isInvalid: Signal<boolean>;
+  invalid: boolean;
+
+  getRawValue(): Biotic;
+  markAsPristine(): void;
+}
+
+export class BioticFormGroup extends FormGroup implements IBioticFormGroup {
   override getRawValue(): Biotic {
     return super.getRawValue() as Biotic;
   }

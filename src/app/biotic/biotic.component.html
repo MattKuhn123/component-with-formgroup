@@ -19,9 +19,9 @@
     <input id="confirm" [formControl]="bioticForm.confirm" type="checkbox"/>
   </div>
 
-  <button (click)="onClickSubmit()" [disabled]="disableSubmit">
+  <button (click)="onClickSubmit()" [disabled]="disableSubmit" id="submit">
     Submit
-    <span *ngIf="requestInProgess">
+    <span *ngIf="requestInProgess" id="dotdotdot">
       ......
     </span>
   </button>

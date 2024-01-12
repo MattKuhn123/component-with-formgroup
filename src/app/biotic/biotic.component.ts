@@ -1,6 +1,6 @@
-import { Component, effect } from '@angular/core';
+import { Component, Input, effect } from '@angular/core';
 import { BioticService, PostingStatus } from './biotic.service';
-import { BioticFormGroup } from './biotic.form-group';
+import { BioticFormGroup, IBioticFormGroup } from './biotic.form-group';
 
 @Component({
   selector: 'app-biotic',
@@ -8,7 +8,9 @@ import { BioticFormGroup } from './biotic.form-group';
   styleUrls: ['./biotic.component.css']
 })
 export class BioticComponent {
-  protected bioticForm: BioticFormGroup = new BioticFormGroup();
+  @Input()
+  public bioticForm: IBioticFormGroup = new BioticFormGroup();
+  
   protected disableSubmit: boolean = true;
   protected requestInProgess: boolean = false;
   protected requestComplete: boolean = false;

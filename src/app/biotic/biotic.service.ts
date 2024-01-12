@@ -30,7 +30,7 @@ export class BioticService {
         ? "RecoverableError"
         : "UnrecoverableError";
 
-      const message: string = status == "RecoverableError"
+      const message: string = 400 <= err.status && err.status <= 499
         ? err.error
         : "An error has occured";
 
