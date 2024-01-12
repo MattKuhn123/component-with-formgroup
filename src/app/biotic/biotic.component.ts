@@ -1,5 +1,5 @@
 import { Component, OnInit, effect } from '@angular/core';
-import { BioticService } from './biotic.service';
+import { BioticService, completedStatuses } from './biotic.service';
 import { BioticFormGroup } from './biotic.form-group';
 
 @Component({
@@ -18,7 +18,7 @@ export class BioticComponent implements OnInit {
     effect(() => {
       this.updateDisableSubmit();
       this.requestInProgess = this.bioticService.postingStatus() === "In Progress";
-      this.requestComplete = ['RecoverableError', 'UnrecoverableError', 'Success'].includes(this.bioticService.postingStatus());
+      this.requestComplete = completedStatuses.includes(this.bioticService.postingStatus());
       this.message = this.bioticService.postingMessage();
     });
   }
