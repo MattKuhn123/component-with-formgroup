@@ -1,0 +1,37 @@
+<h2>Biotic</h2>
+<form class="biotic-form">
+  <div>
+    <label for="fishNumber">
+      Fish Number: 
+    </label>
+    <input id="fishNumber" [formControl]="bioticForm.fishNumber" type="number"/>
+  </div>
+  <div>
+    <label for="fishLength">
+      Fish Length: 
+    </label>
+    <input id="fishLength" [formControl]="bioticForm.fishLength" type="number"/>
+  </div>
+  <div>
+    <label for="confirm">
+      Confirm? 
+    </label>
+    <input id="confirm" [formControl]="bioticForm.confirm" type="checkbox"/>
+  </div>
+
+  <button (click)="onClickSubmit()" [disabled]="bioticForm.invalid || postingStatus() === 'In Progress'">
+    Submit
+    <span *ngIf="postingStatus() === 'In Progress'">
+      ......
+    </span>
+  </button>
+
+  <div *ngIf="bioticForm.invalid && (bioticForm.touched || bioticForm.dirty)">
+    {{ bioticForm.error }}
+  </div>
+
+  <div *ngIf="postingStatus() === 'Error' || postingStatus() === 'Success'">
+   {{ postingMessage() }}
+  </div>
+
+</form>
