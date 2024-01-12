@@ -5,7 +5,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment.development';
 
 export type PostingStatus = "Not Yet" | "In Progress" | "RecoverableError" | "UnrecoverableError" | "Success";
-export const completedStatuses: PostingStatus[] = ['RecoverableError', 'UnrecoverableError', 'Success'];
 
 @Injectable({
   providedIn: 'root'
