@@ -4,7 +4,7 @@ import { Observable, catchError, delay, of, tap } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment.development';
 
-export type PostingStatus = "Not Yet" | "In Progress" | "RecoverableError" | "UnrecoverableError" | "Success";
+export type PostingStatus = "Not Yet" | "In Progress" | "Recoverable Error" | "Unrecoverable Error" | "Success";
 
 @Injectable({
   providedIn: 'root'
@@ -27,8 +27,8 @@ export class BioticService {
     }))
     .pipe(catchError((err: HttpErrorResponse) => {
       const status: PostingStatus = 400 <= err.status && err.status <= 499
-        ? "RecoverableError"
-        : "UnrecoverableError";
+        ? "Recoverable Error"
+        : "Unrecoverable Error";
 
       const message: string = 400 <= err.status && err.status <= 499
         ? err.error

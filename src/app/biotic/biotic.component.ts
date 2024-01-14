@@ -27,7 +27,7 @@ export class BioticComponent {
     
     // showMessage
     effect(() => {
-      const completeStatuses: PostingStatus[] = ['RecoverableError', 'UnrecoverableError', 'Success'];
+      const completeStatuses: PostingStatus[] = ['Recoverable Error', 'Unrecoverable Error', 'Success'];
       this.showMessage = completeStatuses.includes(this.bioticService.postingStatus());
     });
     
