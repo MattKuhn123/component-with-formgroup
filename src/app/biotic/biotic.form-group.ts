@@ -22,10 +22,7 @@ export abstract class IBioticFormGroup {
 
 @Injectable()
 export class BioticFormGroup extends FormGroup implements IBioticFormGroup {
-  override getRawValue(): Biotic {
-    return super.getRawValue() as Biotic;
-  }
-
+  override getRawValue(): Biotic { return super.getRawValue() as Biotic; }
   get fishNumber(): FormControl { return super.get('fishNumber') as FormControl; }
   get fishLength(): FormControl { return super.get('fishLength') as FormControl; }
   get confirm(): FormControl { return super.get('confirm') as FormControl; }
@@ -60,7 +57,6 @@ export class BioticFormGroup extends FormGroup implements IBioticFormGroup {
     });
 
     this.valueChanges.subscribe(x => this._isInvalid.set(this.invalid));
-
     super.validator = this.bioticValidator;
   }
 
