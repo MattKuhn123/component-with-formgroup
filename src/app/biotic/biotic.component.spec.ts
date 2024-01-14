@@ -69,7 +69,7 @@ describe('BioticComponent', () => {
     expect(component).toBeTruthy();
   });
   
-  it(`should enable submit when postingStatus === "Not Yet" formGroup.isInvalid === false`, () => {
+  it(`should enable submit when postingStatus === "Not Yet" && formGroup.isInvalid === false`, () => {
     configureTest({
       service: mockBioticService({ postingMessage: "", postingStatus: "Not Yet" }),
       formGroup: mockBioticFormGroup({ dirty: false, isInvalid: false, touched: false })
