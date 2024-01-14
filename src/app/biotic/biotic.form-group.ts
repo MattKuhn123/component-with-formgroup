@@ -1,4 +1,4 @@
-import { Signal, WritableSignal, signal } from "@angular/core";
+import { Injectable, Signal, WritableSignal, signal } from "@angular/core";
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from "@angular/forms";
 
 export type Biotic = {
@@ -6,20 +6,21 @@ export type Biotic = {
   fishLength: number,
 }
 
-export interface IBioticFormGroup {
-  fishNumber: FormControl;
-  fishLength: FormControl;
-  confirm: FormControl;
-  error: string[];
-  isInvalid: Signal<boolean>;
-  invalid: boolean;
+@Injectable()
+export abstract class IBioticFormGroup {
+  abstract fishNumber: FormControl;
+  abstract fishLength: FormControl;
+  abstract confirm: FormControl;
+  abstract error: string[];
+  abstract isInvalid: Signal<boolean>;
 
-  getRawValue(): Biotic;
-  markAsPristine(): void;
-  touched: boolean;
-  dirty: boolean;
+  abstract getRawValue(): Biotic;
+  abstract markAsPristine(): void;
+  abstract touched: boolean;
+  abstract dirty: boolean;
 }
 
+@Injectable()
 export class BioticFormGroup extends FormGroup implements IBioticFormGroup {
   override getRawValue(): Biotic {
     return super.getRawValue() as Biotic;

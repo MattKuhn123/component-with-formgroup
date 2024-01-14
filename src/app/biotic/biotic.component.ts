@@ -1,6 +1,6 @@
-import { Component, Input, effect } from '@angular/core';
+import { Component, effect } from '@angular/core';
 import { BioticService, PostingStatus } from './biotic.service';
-import { BioticFormGroup, IBioticFormGroup } from './biotic.form-group';
+import { IBioticFormGroup } from './biotic.form-group';
 
 @Component({
   selector: 'app-biotic',
@@ -8,35 +8,38 @@ import { BioticFormGroup, IBioticFormGroup } from './biotic.form-group';
   styleUrls: ['./biotic.component.css']
 })
 export class BioticComponent {
-  @Input()
-  public bioticForm: IBioticFormGroup = new BioticFormGroup();
-  
   protected disableSubmit: boolean = true;
-  protected requestInProgess: boolean = false;
-  protected requestComplete: boolean = false;
+  protected showDotDotDot: boolean = false;
+  protected showMessage: boolean = false;
   protected message: string = "";
+  protected showError: boolean = false;
 
-  constructor(private bioticService: BioticService) {
+  constructor(private bioticService: BioticService, protected bioticForm: IBioticFormGroup) {
     // disableSubmit
     effect(() => {
-      this.disableSubmit = this.bioticForm.isInvalid() || this.bioticService.postingStatus() === 'In Progress'
+      this.disableSubmit = this.bioticForm.isInvalid() || this.bioticService.postingStatus() === 'In Progress';
     });
     
-    // requestInProgess
+    // showDotDotDot
     effect(() => {
-      this.requestInProgess = 'In Progress' === this.bioticService.postingStatus();
+      this.showDotDotDot = 'In Progress' === this.bioticService.postingStatus();
     });
     
-    // requestComplete
+    // showMessage
     effect(() => {
       const completeStatuses: PostingStatus[] = ['RecoverableError', 'UnrecoverableError', 'Success'];
-      this.requestComplete = completeStatuses.includes(this.bioticService.postingStatus());
+      this.showMessage = completeStatuses.includes(this.bioticService.postingStatus());
     });
     
     // message
     effect(() => {
       this.message = this.bioticService.postingMessage();
     });
+
+    // showError
+    effect(() => {
+      this.showError = this.bioticForm.isInvalid() && (this.bioticForm.touched || this.bioticForm.dirty)
+    })
   }
 
   protected onClickSubmit(): void {

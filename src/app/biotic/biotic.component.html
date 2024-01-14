@@ -21,18 +21,18 @@
 
   <button (click)="onClickSubmit()" [disabled]="disableSubmit" id="submit">
     Submit
-    <span *ngIf="requestInProgess" id="dotdotdot">
+    <span *ngIf="showDotDotDot" id="dotdotdot">
       ......
     </span>
   </button>
 
-  <div *ngIf="bioticForm.invalid && (bioticForm.touched || bioticForm.dirty)">
+  <div *ngIf="showError" id="errors">
     <p *ngFor="let err of bioticForm.error"> 
       {{ err }} 
     </p>
   </div>
 
-  <div *ngIf="requestComplete">
+  <div *ngIf="showMessage" id="postingMessage">
    {{ message }}
   </div>
 
