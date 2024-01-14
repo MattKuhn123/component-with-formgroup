@@ -3,3 +3,7 @@
   flex-direction: column;
   row-gap: 5px;
 }
+
+button {
+  max-width: 150px;
+}
